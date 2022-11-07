@@ -13,17 +13,21 @@ from classes import *
 
 def load(input_data):
     n = int(input_data[0])
-
+    # np.array([e.split(" ") for e in data[1:]], dtype=int)
     return Data(n=n)
 
 
 if __name__ == "__main__":
     level, quests = 1, 5
+    only_one_quest = [0,True]
     for q in range(0, quests + 1):
+        if only_one_quest[1] and (q != only_one_quest[0]):
+            continue
         if q == 0:
             q = "example"
-
-        input_file = r'/home/thomas/Downloads/level{0}/level{0}_{1}.in'.format(level, q)
+        
+        fileextension = '/level{0}/level{0}_{1}.in'.format(level, q)
+        input_file = os.getcwd()+fileextension
         output_file = os.path.splitext(input_file)[0] + ".out"
 
         with open(input_file, 'r') as fi:
