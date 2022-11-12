@@ -1,5 +1,7 @@
 import os
 from pprint import pprint
+import numpy as np
+from copy import copy, deepcopy
 
 import level1
 import level2
@@ -13,21 +15,55 @@ from classes import *
 
 def load(input_data):
     n = int(input_data[0])
-    # np.array([e.split(" ") for e in data[1:]], dtype=int)
-    return Data(n=n)
+    board = []
+    for row in range(n):
+        line = input_data[row + 1]
+        out_line = []
+        for x in line:
+            out_line.append(x)
+        board.append(out_line)
+
+    start_row = int(input_data[n + 1].split(" ")[0]) - 1
+    start_col = int(input_data[n + 1].split(" ")[1]) - 1
+    max_moves = int(input_data[n + 2])
+
+    '''
+    n_moves = int(input_data[n + 2])
+    moves = [*input_data[n + 3]]
+
+    n_ghosts = int(input_data[n + 4])
+    ghosts = []
+    for i in range(n_ghosts):
+        pos = input_data[n + 5 + i * 3]
+        x = int(pos.split(" ")[0]) - 1
+        y = int(pos.split(" ")[1]) - 1
+        n_ghost_moves = int(input_data[n + 5 + i * 3 + 1])
+        ghost_moves = [*input_data[n + 5 + i * 3 + 2]]
+        ghosts.append(Ghost(x, y, n_ghost_moves, ghost_moves, 0, 0))
+    original_board = deepcopy(board)
+    for row in range(n):
+        for col in range(n):
+            if board[row][col] == "G":
+                original_board[row][col] = "V"
+    '''
+
+    # return Data(n=n, board=board, pacman_row=start_row, pacman_col=start_col, n_moves=n_moves, moves=moves,
+    #            n_ghosts=n_ghosts, ghosts=ghosts, original_board=original_board)
+
+    return Data(n=n, board=board, pacman_row=start_row, pacman_col=start_col, n_moves=max_moves)
 
 
 if __name__ == "__main__":
-    level, quests = 1, 5
-    only_one_quest = [0,True]
+    level, quests = 4, 7
+    only_one_quest = [0, 0]
     for q in range(0, quests + 1):
         if only_one_quest[1] and (q != only_one_quest[0]):
             continue
         if q == 0:
             q = "example"
-        
-        fileextension = '/level{0}/level{0}_{1}.in'.format(level, q)
-        input_file = os.getcwd()+fileextension
+
+        fileextension = '/home/thomas/Downloads/level{0}/level{0}_{1}.in'.format(level, q)
+        input_file = fileextension
         output_file = os.path.splitext(input_file)[0] + ".out"
 
         with open(input_file, 'r') as fi:
