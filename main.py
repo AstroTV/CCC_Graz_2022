@@ -55,14 +55,14 @@ def load(input_data):
 
 if __name__ == "__main__":
     level, quests = 4, 7
-    only_one_quest = [0, 0]
+    only_one_quest = [5, 1]
     for q in range(0, quests + 1):
         if only_one_quest[1] and (q != only_one_quest[0]):
             continue
         if q == 0:
             q = "example"
 
-        fileextension = '/home/thomas/Downloads/level{0}/level{0}_{1}.in'.format(level, q)
+        fileextension = os.getcwd() + '/level{0}/level{0}_{1}.in'.format(level, q)
         input_file = fileextension
         output_file = os.path.splitext(input_file)[0] + ".out"
 
